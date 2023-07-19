@@ -27,10 +27,18 @@ function onFormInput(event) {
 //submit function
 function onFormSubmit(event) {
   event.preventDefault();
-  console.log(formData);
 
-  form.reset();
-  localStorage.removeItem(STORAGE_KEY);
+  if (formData.email && formData.message) {
+    console.log(formData);
+    form.reset();
+    localStorage.removeItem(STORAGE_KEY);
+
+    Object.keys(formData).forEach(key => {
+      delete formData[key];
+    });
+  } else {
+    alert('Заповніть всі поля!');
+  }
 }
 
 //loading formData
@@ -43,6 +51,9 @@ function loadFormData() {
 
     emailInput.value = parsedData.email;
     textArea.value = parsedData.message;
+  } else {
+    emailInput.value = '';
+    textArea.value = '';
   }
 }
 
