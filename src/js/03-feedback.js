@@ -32,10 +32,6 @@ function onFormSubmit(event) {
     console.log(formData);
     form.reset();
     localStorage.removeItem(STORAGE_KEY);
-
-    Object.keys(formData).forEach(key => {
-      delete formData[key];
-    });
   } else {
     alert('Заповніть всі поля!');
   }
@@ -49,11 +45,8 @@ function loadFormData() {
     const parsedData = JSON.parse(savedData);
     Object.assign(formData, parsedData);
 
-    emailInput.value = parsedData.email;
-    textArea.value = parsedData.message;
-  } else {
-    emailInput.value = '';
-    textArea.value = '';
+    emailInput.value = parsedData.email || '';
+    textArea.value = parsedData.message || '';
   }
 }
 
